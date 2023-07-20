@@ -1,11 +1,12 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
+let modalImg;
 const galleryEL = document.querySelector(".gallery");
 galleryEL.insertAdjacentHTML("afterBegin", createGalleryMarkUp(galleryItems));
 galleryEL.addEventListener("click", toActivateModalImg);
-let modalImg;
 
+//Create MarkUp
 function createGalleryMarkUp(arrayImg) {
   return arrayImg
     .map(
@@ -23,6 +24,7 @@ function createGalleryMarkUp(arrayImg) {
     .join("");
 }
 
+// to run Modal Window for show Large Image
 function toActivateModalImg(evt) {
   evt.preventDefault();
 
@@ -30,16 +32,30 @@ function toActivateModalImg(evt) {
     return;
   }
 
-  modalImg = basicLightbox.create(`
-    <img src="${evt.target.dataset.source}">
-`);
+  modalImg = basicLightbox.create(`<img src="${evt.target.dataset.source}">`, {
+    closable: false, //disable to close modal window by Click
+  });
 
-  modalImg.show(document.addEventListener("keydown", toCloseModalWindow));
+  //to show modal window and run function Listener for to close modal
+  modalImg.show(toActivateListenModalImg);
 }
 
+// activate Listener for click and keyboard
+function toActivateListenModalImg() {
+  document.addEventListener("keydown", toCloseModalWindow);
+  document.addEventListener("click", toCloseModalWindow);
+}
+
+//disactive Listeners
+function toDisActivateListenModalImg() {
+  document.removeEventListener("keydown", toCloseModalWindow);
+  document.removeEventListener("click", toCloseModalWindow);
+}
+
+//callback for addEventListener, check Escape or click and to call function for close modalWindow
 function toCloseModalWindow(event) {
-  if (event.code === "Escape" || !modalImg.visible()) {
-    modalImg.close();
-    document.removeEventListener("keydown", toCloseModalWindow);
+  if (event.code !== "Escape" && event.type !== "click") {
+    return;
   }
+  modalImg.close(toDisActivateListenModalImg);
 }

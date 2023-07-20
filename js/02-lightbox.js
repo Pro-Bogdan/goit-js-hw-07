@@ -4,11 +4,13 @@ import { galleryItems } from "./gallery-items.js";
 const galleryEL = document.querySelector(".gallery");
 galleryEL.insertAdjacentHTML("afterBegin", createGalleryMarkUp(galleryItems));
 
+//initialization library SimpleLightbox
 new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
 });
 
+//create Markup
 function createGalleryMarkUp(arrayImg) {
   return arrayImg
     .map(

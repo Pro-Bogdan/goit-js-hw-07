@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Image gallery</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .not-loaded {
+        filter: blur(5px) grayscale(100%);
+        transition: filter 2000ms;
+      }
+      .lazyloaded {
+        filter: blur(0) grayscale(0);
+      }
+    </style>
+  </head>
+  <body>
+    <p><a href="index.html">Go back</a></p>
+    <div id="controls">
+      <label>
+        Image quantity: <input type="number" min="1" max="100" step="1"
+      /></label>
+      <button type="button" data-create>Create gallery</button>
+      <button type="button" data-destroy>Destroy galerry</button>
+    </div>
+    <!-- Add gallery items to this list -->
+    <ul class="gallery"></ul>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
+      integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/03-gallery-lazyload(additional).js" type="module"></script>
+  </body>
+</html>
